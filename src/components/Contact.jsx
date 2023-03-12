@@ -1,9 +1,127 @@
-import React from 'react'
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
+
+import { styles } from "../styles";
+import { EarthCanvas } from "./canvas";
+import { SectionWrapper } from "../hoc";
+import { slideIn } from "../utils/motion";
 
 const Contact = () => {
-  return (
-    <div>Contact</div>
-  )
+  const [data, setData] = useState({
+    name: '',
+    email: '',
+    message: ''
+});
+
+function sendEmail(e) {
+    e.preventDefault();
+
+    emailjs.sendForm('service_bu9oqhx', 'template_lwh1wca', e.target, 'user_Y2VvIximudWt5Y32mZnuf')
+        .then((result) => {
+            alert("Email send successfully");
+            setData({
+                name: '',
+                email: '',
+                message: ''
+            })
+        }, (error) => {
+            setData({
+                name: '',
+                email: '',
+                message: ''
+            })
+        });
 }
 
-export default Contact
+
+const handleOnChange = (e) => {
+    if (e.target.name === 'name') {
+        setData(prev => {
+            return {
+                ...prev, name: e.target.value
+            }
+        });
+    } else if (e.target.name === 'email') {
+        setData(prev => {
+            return {
+                ...prev, email: e.target.value
+            }
+        });
+    } else {
+        setData(prev => {
+            return {
+                ...prev, message: e.target.value
+            }
+        });
+    }
+}
+  return (
+    <div
+      className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden`}
+    >
+      <motion.div
+        variants={slideIn("left", "tween", 0.2, 1)}
+        className='flex-[0.75] bg-black-100 p-8 rounded-2xl'
+      >
+        <p className={styles.sectionSubText}>Get in touch</p>
+        <h3 className={styles.sectionHeadText}>Contact.</h3>
+
+        <form
+          onSubmit={sendEmail}
+          className='mt-12 flex flex-col gap-8'
+        >
+          <label className='flex flex-col'>
+            <span className='text-white font-medium mb-4'>Your Name</span>
+            <input
+              type='text'
+              name='name'
+              value={data.name}
+              onChange={handleOnChange}
+              placeholder="What's your good name?"
+              className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
+            />
+          </label>
+          <label className='flex flex-col'>
+            <span className='text-white font-medium mb-4'>Your email</span>
+            <input
+              type='email'
+              name='email'
+              value={data.email}
+              onChange={handleOnChange}
+              placeholder="What's your web address?"
+              className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
+            />
+          </label>
+          <label className='flex flex-col'>
+            <span className='text-white font-medium mb-4'>Your Message</span>
+            <textarea
+              rows={7}
+              name='message'
+              value={data.message}
+              onChange={handleOnChange}
+              placeholder='What you want to say?'
+              className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
+            />
+          </label>
+
+          <button
+            type='submit'
+            className='bg-tertiary py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary'
+          >
+            send
+          </button>
+        </form>
+      </motion.div>
+
+      <motion.div
+        variants={slideIn("right", "tween", 0.2, 1)}
+        className='xl:flex-1 xl:h-auto md:h-[550px] h-[350px]'
+      >
+        <EarthCanvas />
+      </motion.div>
+    </div>
+  );
+};
+
+export default SectionWrapper(Contact, "contact");

@@ -194,7 +194,7 @@ const projects = [
         color: "blue-text-gradient",
       },
       {
-        name: "mongodb",
+        name: "react-router",
         color: "green-text-gradient",
       },
       {
@@ -215,12 +215,16 @@ const projects = [
         color: "blue-text-gradient",
       },
       {
-        name: "restapi",
+        name: "redux",
         color: "green-text-gradient",
       },
       {
         name: "scss",
         color: "pink-text-gradient",
+      },
+      {
+        name: "firebase",
+        color: "blue-text-gradient",
       },
     ],
     image: shopnyla,
@@ -232,17 +236,13 @@ const projects = [
       "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
     tags: [
       {
-        name: "nextjs",
+        name: "JavaScript",
         color: "blue-text-gradient",
       },
       {
-        name: "supabase",
+        name: "tailwind",
         color: "green-text-gradient",
-      },
-      {
-        name: "css",
-        color: "pink-text-gradient",
-      },
+      }
     ],
     image: colorgenerate,
     source_code_link: "https://github.com/khanfaysal/color-generate",

@@ -54,7 +54,7 @@ const services = [
     icon: backend,
   },
   {
-    title: "Team Player",
+    title: "Team",
     icon: creator,
   },
 ];
